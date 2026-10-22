@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GanttProject Web Simulator — Sistem Informasi Penjadwalan Proyek</title>
+  <meta name="description" content="Simulator penjadwalan proyek berbasis GanttProject: WBS tugas & sub-tugas, dependensi FS/SS + lag, kalender kerja & hari libur, alokasi SDM, Gantt Chart, PERT Chart, dan analisis jalur kritis. Client-side penuh dengan LocalStorage." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = { theme: { extend: { fontFamily: { sans: ['"Plus Jakarta Sans"', 'system-ui', 'sans-serif'] } } } };
+  </script>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body class="app">
+
+  <!-- ============================ HEADER ============================ -->
+  <header class="app-header">
+    <div class="header-row">
+      <div class="brand">
+        <div class="brand-logo">GP</div>
+        <div>
+          <div class="brand-title" id="projTitle">GanttProject Web Simulator</div>
+          <div class="brand-sub">Sistem Informasi Penjadwalan Proyek · HTML5 + Tailwind + Vanilla JS</div>
+          <div class="brand-org" id="projSub">—</div>
+        </div>
+      </div>
+
+      <nav class="tabs" aria-label="Tampilan">
+        <button type="button" class="tab-btn is-active" data-action="tab" data-view="gantt">📊 Gantt Chart</button>
+        <button type="button" class="tab-btn" data-action="tab" data-view="pert">🔀 PERT Chart</button>
+        <button type="button" class="tab-btn" data-action="tab" data-view="resources">👥 Resources</button>
+      </nav>
+
+      <div class="header-right">
+        <span class="storage-dot" id="storageInfo"><i></i>LocalStorage aktif</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- ============================ TOOLBAR ============================ -->
+  <div class="toolbar">
+    <div class="tb-group">
+      <button type="button" class="btn btn-dark" data-action="new-project" title="Project → New: identitas proyek, role sets, kalender">📁 Project Baru</button>
+      <button type="button" class="btn" data-action="project-settings" title="Identitas proyek, role sets, kalender & hari libur">⚙ Properti Proyek</button>
+    </div>
+    <span class="tb-sep"></span>
+    <div class="tb-group">
+      <button type="button" class="btn btn-primary" data-action="new-task" title="Tambah tugas baru">➕ Tugas Baru</button>
+      <button type="button" class="btn" data-action="task-props" title="Properti tugas terpilih" disabled>📋 Properti</button>
+      <button type="button" class="btn" data-action="indent" title="Jadikan sub-tugas (indent)" disabled>⇥ Indent</button>
+      <button type="button" class="btn" data-action="outdent" title="Keluarkan dari induk (outdent)" disabled>⇤ Outdent</button>
+      <button type="button" class="btn" data-action="move-up" title="Naikkan urutan" disabled>↑</button>
+      <button type="button" class="btn" data-action="move-down" title="Turunkan urutan" disabled>↓</button>
+      <button type="button" class="btn btn-danger" data-action="delete-task" title="Hapus tugas terpilih" disabled>🗑 Hapus</button>
+    </div>
+    <span class="tb-sep"></span>
+    <div class="tb-group">
+      <button type="button" class="btn" data-action="toggle-critical" title="Tandai jalur kritis (float = 0) dengan warna merah">🔴 Show Critical Path</button>
+      <button type="button" class="btn" data-action="zoom-out" title="Perkecil skala tanggal">−</button>
+      <button type="button" class="btn" data-action="zoom-in" title="Perbesar skala tanggal">＋</button>
+      <button type="button" class="btn" data-action="goto-today" title="Gulir ke hari ini">📅 Hari Ini</button>
+    </div>
+    <span class="tb-spacer"></span>
+    <div class="tb-group">
+      <button type="button" class="btn" data-action="export-gan" title="Unduh berkas proyek XML untuk GanttProject">⬇ .gan</button>
+      <button type="button" class="btn" data-action="export-json" title="Unduh backup JSON">⬇ JSON</button>
+      <button type="button" class="btn" data-action="import-json" title="Pulihkan dari berkas JSON">⬆ Impor</button>
+      <button type="button" class="btn" data-action="reset-seed" title="Kembalikan data contoh">↺ Contoh</button>
+    </div>
+  </div>
+
+  <main>
+    <!-- ============================ STATISTIK ============================ -->
+    <div class="stats-pad">
+      <div class="stats-strip">
+        <div class="stat">
+          <div class="stat-label">Total Tugas</div>
+          <div class="stat-value" id="statTugas">—</div>
+          <div class="cell-sub" id="statTugasSub">—</div>
+        </div>
+        <div class="stat">
+          <div class="stat-label">Mulai Proyek</div>
+          <div class="stat-value" id="statMulai">—</div>
+          <div class="cell-sub">Awal jadwal (hari kerja)</div>
+        </div>
+        <div class="stat">
+          <div class="stat-label">Selesai Proyek</div>
+          <div class="stat-value" id="statSelesai">—</div>
+          <div class="cell-sub">Akhir jadwal (hari kerja)</div>
+        </div>
+        <div class="stat">
+          <div class="stat-label">Durasi Total</div>
+          <div class="stat-value" id="statDurasi">—</div>
+          <div class="cell-sub" id="statDurasiSub">—</div>
+        </div>
+        <div class="stat">
+          <div class="stat-label">Analisis Jalur Kritis</div>
+          <div class="stat-value" id="statKritis">Belum diaktifkan</div>
+          <div class="cell-sub">Tugas dengan float = 0 hari</div>
+        </div>
+        <div class="stat">
+          <div class="stat-label">Sumber Daya</div>
+          <div class="stat-value" id="statSdm">—</div>
+          <div class="cell-sub" id="statSdmSub">—</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============================ PANEL GANTT ============================ -->
+    <section class="panel is-active" id="panel-gantt">
+      <div id="ganttHost"></div>
+    </section>
+
+    <!-- ============================ PANEL PERT ============================ -->
+    <section class="panel" id="panel-pert">
+      <div class="card" style="margin-bottom:14px">
+        <div class="card-head">
+          <div>
+            <h2>PERT Chart — Program Evaluation & Review Technique</h2>
+            <p>Node kotak = tugas (WBS, durasi hari kerja, rentang tanggal, progres) · panah = logika keterkaitan FS/SS dari MULAI hingga SELESAI.</p>
+          </div>
+          <div class="row-actions">
+            <button type="button" class="btn" data-action="toggle-critical">🔴 Show Critical Path</button>
+          </div>
+        </div>
+      </div>
+      <div id="pertHost"></div>
+    </section>
+
+    <!-- ============================ PANEL RESOURCES ============================ -->
+    <section class="panel" id="panel-resources">
+      <div class="card" style="margin-bottom:14px">
+        <div class="card-head">
+          <div>
+            <h2>Resource Chart — Sumber Daya Manusia</h2>
+            <p id="resCount">0 SDM terdaftar</p>
+          </div>
+          <div class="row-actions">
+            <button type="button" class="btn btn-primary" data-action="new-res">➕ Tambah SDM</button>
+          </div>
+        </div>
+        <div class="table-wrap">
+          <table class="tbl">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Nama SDM</th>
+                <th>Peran / Jabatan</th>
+                <th>Kontak</th>
+                <th>Tarif / Biaya</th>
+                <th>Tugas Diampu</th>
+                <th>Aksi</th>
+              </tr>
+            </thead>
+            <tbody id="resTableBody"></tbody>
+          </table>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-head"><div><h2>Cara Menugaskan SDM ke Tugas</h2></div></div>
+        <div class="card-body">
+          <ol style="margin:0;padding-left:18px;line-height:1.9;font-size:13px;color:#475569">
+            <li>Buka tab <strong>Gantt Chart</strong>, lalu <strong>klik batang tugas</strong> (atau klik dua kali baris tugas).</li>
+            <li>Pada jendela <strong>Task Properties</strong>, centang SDM pada bagian <em>Alokasi SDM (Resource Assignment)</em>.</li>
+            <li>Setelah disimpan, nama SDM penanggung jawab otomatis tampil di samping batang tugas pada Gantt Chart.</li>
+            <li>Peran pada dropdown SDM mengikuti <strong>Role Sets</strong> yang dicentang di Properti Proyek (Default &amp; Software Development).</li>
+          </ol>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="app-footer">
+    <b>GanttProject Web Simulator</b> — Sistem Informasi Penjadwalan Proyek · client-side penuh (HTML5, Tailwind CSS CDN, Vanilla JavaScript) ·
+    data tersimpan di LocalStorage browser Anda · modul aplikasi sebelumnya diarsipkan di folder <b>hotel/</b>.
+  </footer>
+
+  <!-- ============================ MODAL: TASK PROPERTIES ============================ -->
+  <div class="modal" id="taskModal" role="dialog" aria-modal="true">
+    <div class="modal-card lg">
+      <div class="modal-head">
+        <div>
+          <h3 id="taskModalTitle">Task Properties</h3>
+          <p id="taskModalSub">—</p>
+        </div>
+        <button type="button" class="modal-x" data-action="close-modal" aria-label="Tutup">×</button>
+      </div>
+      <form id="taskForm" novalidate>
+        <div class="modal-body">
+          <div class="grid2">
+            <div class="field span2">
+              <label for="fTaskName">Nama Tugas</label>
+              <input type="text" id="fTaskName" placeholder="mis. Analisis Kebutuhan" autocomplete="off" />
+            </div>
+            <div class="field">
+              <label for="fTaskStart">Tanggal Mulai</label>
+              <input type="date" id="fTaskStart" />
+              <span class="hint" id="startDurHint">—</span>
+            </div>
+            <div class="field">
+              <label for="fTaskDuration">Durasi <small>(hari kerja)</small></label>
+              <input type="number" id="fTaskDuration" min="0" max="730" step="1" />
+            </div>
+            <div class="field">
+              <label for="fTaskPriority">Tingkat Prioritas</label>
+              <select id="fTaskPriority">
+                <option value="low">Low</option>
+                <option value="normal" selected>Normal</option>
+                <option value="high">High</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="fTaskProgress">Progres (%)</label>
+              <input type="number" id="fTaskProgress" min="0" max="100" step="5" />
+              <span class="hint" id="progressHint">—</span>
+            </div>
+            <div class="field span2">
+              <label>Warna Batang Timeline</label>
+              <div class="swatches" id="colorSwatches"></div>
+              <input type="hidden" id="fTaskColor" value="#6366f1" />
+            </div>
+          </div>
+
+          <div class="section-title">Keterkaitan Tugas (Predecessors) — FS / SS + Lag</div>
+          <div class="pred-list" id="predList"></div>
+          <div style="margin-top:8px">
+            <button type="button" class="btn btn-sm" data-action="add-pred">＋ Tambah Pendahulu</button>
+          </div>
+          <p class="hint" style="margin-top:8px;font-size:11.5px;color:#64748b">
+            <strong>FS (Finish-to-Start):</strong> penerus mulai setelah pendahulu selesai + lag ·
+            <strong>SS (Start-to-Start):</strong> penerus mulai bersamaan dengan pendahulu + lag.
+            Satuan lag = hari kerja (melewati weekend &amp; hari libur).
+          </p>
+
+          <div class="section-title">Alokasi SDM (Resource Assignment)</div>
+          <div class="assign-grid" id="assignGrid"></div>
+
+          <div class="section-title">Informasi</div>
+          <div class="cell-sub" id="taskParentInfo">—</div>
+        </div>
+        <div class="modal-foot">
+          <button type="button" class="btn" data-action="close-modal">Batal</button>
+          <button type="submit" class="btn btn-primary">Simpan Tugas</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ============================ MODAL: PROYEK ============================ -->
+  <div class="modal" id="projectModal" role="dialog" aria-modal="true">
+    <div class="modal-card">
+      <div class="modal-head">
+        <div>
+          <h3 id="projModalTitle">Properti Proyek</h3>
+          <p>Identitas, format penanggalan, role sets, kalender kerja &amp; hari libur</p>
+        </div>
+        <button type="button" class="modal-x" data-action="close-modal" aria-label="Tutup">×</button>
+      </div>
+      <form id="projectForm" novalidate>
+        <div class="modal-body">
+          <div class="holiday-item" id="newProjectWarn" style="display:none">
+            <span class="h-name">⚠ Proyek Baru: seluruh tugas, SDM, dan hari libur lama akan dikosongkan.</span>
+          </div>
+
+          <div class="section-title">Identitas Proyek</div>
+          <div class="grid2">
+            <div class="field span2">
+              <label for="fProjName">Nama Proyek</label>
+              <input type="text" id="fProjName" placeholder="mis. Pengembangan Sistem Informasi Akademik" />
+            </div>
+            <div class="field">
+              <label for="fProjCompany">Nama Organisasi / Perusahaan</label>
+              <input type="text" id="fProjCompany" placeholder="mis. PT Nusantara Digital Teknologi" />
+            </div>
+            <div class="field">
+              <label for="fProjFormat">Format Penanggalan</label>
+              <select id="fProjFormat">
+                <option value="DD/MM/YYYY" selected>DD/MM/YYYY</option>
+                <option value="MM/DD/YYYY">MM/DD/YYYY</option>
+                <option value="YYYY-MM-DD">YYYY-MM-DD</option>
+              </select>
+              <span class="hint">Format tampilan tanggal pada Gantt, PERT, dan tabel.</span>
+            </div>
+            <div class="field span2">
+              <label for="fProjDesc">Deskripsi</label>
+              <textarea id="fProjDesc" placeholder="Ringkasan ruang lingkup proyek…"></textarea>
+            </div>
+          </div>
+
+          <div class="section-title">Role Sets (Peran Baku)</div>
+          <div class="check-row">
+            <label class="check"><input type="checkbox" id="chkRoleDefault" checked /> Default</label>
+            <label class="check"><input type="checkbox" id="chkRoleSD" checked /> Software Development</label>
+          </div>
+          <div id="rolePreview" style="margin-top:10px"></div>
+          <p class="hint" style="margin-top:6px;font-size:11.5px;color:#64748b">
+            Centang minimal satu role set. Kombinasi keduanya menyediakan peran baku:
+            <strong>Project Manager, System Analyst, UI/UX Designer, Programmer, QA/Tester</strong> (ditambah Team Leader, Database Engineer, dst.).
+          </p>
+
+          <div class="section-title">Kalender Kerja &amp; Hari Libur</div>
+          <div class="check-row">
+            <label class="check"><input type="checkbox" id="chkSat" checked /> Sabtu = non-working day</label>
+            <label class="check"><input type="checkbox" id="chkSun" checked /> Minggu = non-working day</label>
+          </div>
+          <div class="holiday-list" id="holidayList"></div>
+          <div class="holiday-add">
+            <input type="text" id="fHolidayName" placeholder="Nama hari libur (mis. Idul Fitri)" />
+            <input type="date" id="fHolidayDate" />
+            <label class="check"><input type="checkbox" id="fHolidayRecurring" /> Tiap tahun</label>
+            <button type="button" class="btn btn-sm" data-action="add-holiday">＋ Tambah Libur</button>
+          </div>
+          <p class="hint" style="margin-top:8px;font-size:11.5px;color:#64748b">
+            Seluruh perhitungan durasi &amp; penjadwalan otomatis melewati weekend dan hari libur custom ini.
+          </p>
+        </div>
+        <div class="modal-foot">
+          <button type="button" class="btn" data-action="close-modal">Batal</button>
+          <button type="submit" class="btn btn-primary" id="projSubmit">Simpan Perubahan</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ============================ MODAL: SDM ============================ -->
+  <div class="modal" id="resourceModal" role="dialog" aria-modal="true">
+    <div class="modal-card sm">
+      <div class="modal-head">
+        <div>
+          <h3 id="resModalTitle">Tambah SDM</h3>
+          <p>Data sumber daya manusia proyek</p>
+        </div>
+        <button type="button" class="modal-x" data-action="close-modal" aria-label="Tutup">×</button>
+      </div>
+      <form id="resourceForm" novalidate>
+        <div class="modal-body">
+          <div class="grid2">
+            <div class="field span2">
+              <label for="fResName">Nama SDM</label>
+              <input type="text" id="fResName" placeholder="mis. Rahmat Hidayat, S.Kom." />
+            </div>
+            <div class="field">
+              <label for="fResEmail">Email</label>
+              <input type="email" id="fResEmail" placeholder="nama@perusahaan.id" />
+            </div>
+            <div class="field">
+              <label for="fResPhone">Nomor Telepon</label>
+              <input type="tel" id="fResPhone" placeholder="0812xxxxxxx" />
+            </div>
+            <div class="field">
+              <label for="fResRole">Peran / Jabatan</label>
+              <select id="fResRole"></select>
+              <span class="hint">Mengikuti Role Sets aktif pada Properti Proyek.</span>
+            </div>
+            <div class="field">
+              <label for="fResRate">Tarif / Biaya</label>
+              <input type="number" id="fResRate" min="0" step="1000" />
+            </div>
+            <div class="field span2">
+              <label for="fResRateType">Satuan Tarif</label>
+              <select id="fResRateType">
+                <option value="hour" selected>Rate per hour (per jam)</option>
+                <option value="task">Rate per task (per tugas)</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div class="modal-foot">
+          <button type="button" class="btn" data-action="close-modal">Batal</button>
+          <button type="submit" class="btn btn-primary">Simpan SDM</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <input type="file" id="importFile" accept="application/json,.json" class="hidden" style="display:none" />
+  <div class="toast-host" id="toastHost" aria-live="polite"></div>
+
+  <script src="js/data.js"></script>
+  <script src="js/gantt.js"></script>
+  <script src="js/pert.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

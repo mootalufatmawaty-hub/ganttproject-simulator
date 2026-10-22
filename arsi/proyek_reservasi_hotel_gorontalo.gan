@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="Sistem Reservasi Online Hotel Gorontalo" company="Grand Palace Hotel Gorontalo" webLink="https://grandpalacegorontalo.id" view-date="2026-11-02" view-index="0" gantt-divider-location="693" resource-divider-location="322" version="3.3.3309" locale="en">
+<description><![CDATA[Proyek pengembangan Sistem Informasi Reservasi & Pembayaran Online untuk Gorontalo Grand Palace Hotel (Studi Kasus Kota Gorontalo, Provinsi Gorontalo). Memuat WBS 10 aktivitas utama (A-J), kalender kerja Senin-Jumat dengan libur akhir pekan & libur nasional, serta alokasi 6 sumber daya (Project Manager, System Analyst, UI/UX Designer, Lead Programmer, QA/Tester, Database Engineer). Berkas ini diimpor dari aplikasi web Sistem Informasi Reservasi Hotel Gorontalo.]]></description>
+<view zooming-state="default:6" id="gantt-chart">
+<field id="tpd3" name="Name" width="257" order="0"/>
+<field id="tpd4" name="Begin date" width="139" order="1"/>
+<field id="tpd5" name="End date" width="130" order="2"/>
+<field id="tpd12" name="Cost" width="63" order="3"/>
+<field id="tpc0" name="Is done" width="88" order="4"/>
+<option id="taskLabelRight" value="name"/>
+<option id="filter.completedTasks" value="false"/>
+<option id="filter.dueTodayTasks" value="false"/>
+<option id="filter.overdueTasks" value="false"/>
+<option id="filter.inProgressTodayTasks" value="false"/>
+<timeline><![CDATA[44]]></timeline>
+<option id="color.recent"><![CDATA[#0F3D2E]]></option>
+</view>
+<view id="resource-table">
+<field id="0" name="Name" width="160" order="0"/>
+<field id="1" name="Default role" width="158" order="1"/>
+</view>
+<calendars>
+<day-types>
+<day-type id="0"/>
+<day-type id="1"/>
+<default-week id="1" name="default" sun="1" mon="0" tue="0" wed="0" thu="0" fri="0" sat="1"/>
+<only-show-weekends value="false"/>
+<overriden-day-types/>
+<days/>
+</day-types>
+<date year="2026" month="12" date="25" type="HOLIDAY"/>
+<date year="2027" month="1" date="1" type="HOLIDAY"/>
+<date year="2027" month="3" date="19" type="HOLIDAY"/>
+<date year="2027" month="3" date="22" type="HOLIDAY"/>
+</calendars>
+<tasks empty-milestones="true">
+<taskproperties>
+<taskproperty id="tpd0" name="type" type="default" valuetype="icon"/>
+<taskproperty id="tpd1" name="priority" type="default" valuetype="icon"/>
+<taskproperty id="tpd2" name="info" type="default" valuetype="icon"/>
+<taskproperty id="tpd3" name="name" type="default" valuetype="text"/>
+<taskproperty id="tpd4" name="begindate" type="default" valuetype="date"/>
+<taskproperty id="tpd5" name="enddate" type="default" valuetype="date"/>
+<taskproperty id="tpd6" name="duration" type="default" valuetype="int"/>
+<taskproperty id="tpd7" name="completion" type="default" valuetype="int"/>
+<taskproperty id="tpd8" name="coordinator" type="default" valuetype="text"/>
+<taskproperty id="tpd9" name="predecessorsr" type="default" valuetype="text"/>
+<taskproperty id="tpc0" name="Is done" type="custom" valuetype="boolean" defaultvalue="false">
+<simple-select select="completion=100"/>
+</taskproperty>
+</taskproperties>
+<task id="1" uid="0a5c9e31000000000000000000000001" name="A. Analisis Kebutuhan" color="#F6C177" meeting="false" start="2026-11-02" duration="10" complete="100" expand="true" cost-manual-value="0" cost-calculated="false">
+<task id="101" uid="0a5c9e31000000000000000000000101" name="Survei calon tamu &amp; wisatawan" color="#F6C177" meeting="false" start="2026-11-02" duration="4" complete="100" expand="true" cost-manual-value="0" cost-calculated="false">
+<customproperty taskproperty-id="tpc0" value="true"/>
+</task>
+<task id="102" uid="0a5c9e31000000000000000000000102" name="Observasi operasional meja resepsionis" color="#F6C177" meeting="false" start="2026-11-06" duration="3" complete="100" expand="true" cost-manual-value="0" cost-calculated="false">
+<notes><![CDATA[Observasi alur check-in/check-out tamu, pencatatan manual buku tamu, dan kendala double-booking yang selama ini terjadi.]]></notes>
+<customproperty taskproperty-id="tpc0" value="true"/>
+</task>
+<task id="103" uid="0a5c9e31000000000000000000000103" name="Wawancara pihak manajemen &amp; pemilik hotel" color="#F6C177" meeting="false" start="2026-11-11" duration="3" complete="100" expand="true" cost-manual-value="0" cost-calculated="false">
+<customproperty taskproperty-id="tpc0" value="true"/>
+</task>
+<customproperty taskproperty-id="tpc0" value="true"/>
+</task>
+<task id="2" uid="0a5c9e31000000000000000000000002" name="B. Pemodelan Sistem &amp; Perancangan Arsitektur Informasi" color="#9CCFF9" meeting="false" start="2026-11-16" duration="8" complete="100" expand="true" cost-manual-value="0" cost-calculated="false">
+<depend id="1" type="2" difference="0" hardness="Strong"/>
+<task id="201" uid="0a5c9e31000000000000000000000201" name="Perancangan Use Case Diagram tamu &amp; staf" color="#9CCFF9" meeting="false" start="2026-11-16" duration="4" complete="100" expand="true" cost-manual-value="0" cost-calculated="false">
+<customproperty taskproperty-id="tpc0" value="true"/>
+</task>
+<task id="202" uid="0a5c9e31000000000000000000000202" name="Perancangan alur data tamu &amp; staf (DFD Level 0-1)" color="#9CCFF9" meeting="false" start="2026-11-20" duration="4" complete="100" expand="true" cost-manual-value="0" cost-calculated="false">
+<customproperty taskproperty-id="tpc0" value="true"/>
+</task>
+<customproperty taskproperty-id="tpc0" value="true"/>
+</task>
+<task id="3" uid="0a5c9e31000000000000000000000003" name="C. Analisis Kebutuhan Hardware" color="#C9A7F5" meeting="false" start="2026-11-30" duration="5" complete="100" expand="true" cost-manual-value="0" cost-calculated="false">
+<depend id="2" type="2" difference="0" hardness="Strong"/>
+<task id="301" uid="0a5c9e31000000000000000000000301" name="Analisis kebutuhan Server Cloud (hosting &amp; database)" color="#C9A7F5" meeting="false" start="2026-11-30" duration="2" complete="100" expand="true" cost-manual-value="0" cost-calculated="false">
+<customproperty taskproperty-id="tpc0" value="true"/>
+</task>
+<task id="302" uid="0a5c9e31000000000000000000000302" name="Analisis PC Desktop meja resepsionis" color="#C9A7F5" meeting="false" start="2026-12-02" duration="2" complete="100" expand="true" cost-manual-value="0" cost-calculated="false">
+<customproperty taskproperty-id="tpc0" value="true"/>
+</task>
+<task id="303" uid="0a5c9e31000000000000000000000303" name="Analisis Scanner &amp; Printer Kasir/Invoice" color="#C9A7F5" meeting="false" start="2026-12-04" duration="1" complete="100" expand="true" cost-manual-value="0" cost-calculated="false">
+<customproperty taskproperty-id="tpc0" value="true"/>
+</task>
+<customproperty taskproperty-id="tpc0" value="true"/>
+</task>
+<task id="4" uid="0a5c9e31000000000000000000000004" name="D. Pengadaan &amp; Instalasi DBMS" color="#8FE3B0" meeting="false" start="2026-12-07" duration="6" complete="60" expand="true" cost-manual-value="0" cost-calculated="false">
+<depend id="3" type="2" difference="0" hardness="Strong"/>
+<task id="401" uid="0a5c9e31000000000000000000000401" name="Pemilihan &amp; penyiapan DBMS relasional (MySQL/PostgreSQL)" color="#8FE3B0" meeting="false" start="2026-12-07" duration="2" complete="100" expand="true" cost-manual-value="0" cost-calculated="false">
+<customproperty taskproperty-id="tpc0" value="true"/>
+</task>
+<task id="402" uid="0a5c9e31000000000000000000000402" name="Konfigurasi server basis data, user &amp; keamanan" color="#8FE3B0" meeting="false" start="2026-12-09" duration="2" complete="50" expand="true" cost-manual-value="0" cost-calculated="false">
+<customproperty taskproperty-id="tpc0" value="false"/>
+</task>
+<task id="403" uid="0a5c9e31000000000000000000000403" name="Pembuatan skema tabel, relasi &amp; data awal (seeding)" color="#8FE3B0" meeting="false" start="2026-12-11" duration="2" complete="0" expand="true" cost-manual-value="0" cost-calculated="false">
+<customproperty taskproperty-id="tpc0" value="false"/>
+</task>
+<customproperty taskproperty-id="tpc0" value="false"/>
+</task>
+<task id="5" uid="0a5c9e31000000000000000000000005" name="E. Desain Input, Output, dan Database" color="#F5A7C8" meeting="false" start="2026-12-14" duration="10" complete="40" expand="true" cost-manual-value="0" cost-calculated="false">
+<depend id="2" type="2" difference="0" hardness="Strong"/>
+<task id="501" uid="0a5c9e31000000000000000000000501" name="Perancangan form booking &amp; katalog kamar (input tamu)" color="#F5A7C8" meeting="false" start="2026-12-14" duration="4" complete="60" expand="true" cost-manual-value="0" cost-calculated="false">
+<customproperty taskproperty-id="tpc0" value="false"/>
+</task>
+<task id="502" uid="0a5c9e31000000000000000000000502" name="Perancangan dashboard staf &amp; laporan (output)" color="#F5A7C8" meeting="false" start="2026-12-18" duration="3" complete="30" expand="true" cost-manual-value="0" cost-calculated="false">
+<customproperty taskproperty-id="tpc0" value="false"/>
+</task>
+<task id="503" uid="0a5c9e31000000000000000000000503" name="Perancangan invoice/e-voucher &amp; desain skema tabel DB" color="#F5A7C8" meeting="false" start="2026-12-23" duration="3" complete="0" expand="true" cost-manual-value="0" cost-calculated="false">
+<customproperty taskproperty-id="tpc0" value="false"/>
+</task>
+<customproperty taskproperty-id="tpc0" value="false"/>
+</task>
+<task id="6" uid="0a5c9e31000000000000000000000006" name="G. Pengadaan Hardware" color="#FF9E9E" meeting="false" start="2027-01-04" duration="7" complete="20" expand="true" cost-manual-value="0" cost-calculated="false">
+<depend id="3" type="2" difference="0" hardness="Strong"/>
+<task id="601" uid="0a5c9e31000000000000000000000601" name="Pengadaan komputer kasir, printer &amp; server" color="#FF9E9E" meeting="false" start="2027-01-04" duration="4" complete="30" expand="true" cost-manual-value="0" cost-calculated="false">
+<customproperty taskproperty-id="tpc0" value="false"/>
+</task>
+<task id="602" uid="0a5c9e31000000000000000000000602" name="Pengadaan perangkat jaringan LAN/Wi-Fi hotel" color="#FF9E9E" meeting="false" start="2027-01-08" duration="3" complete="0" expand="true" cost-manual-value="0" cost-calculated="false">
+<customproperty taskproperty-id="tpc0" value="false"/>
+</task>
+<customproperty taskproperty-id="tpc0" value="false"/>
+</task>
+<task id="7" uid="0a5c9e31000000000000000000000007" name="H. Programming / Pengodean Aplikasi" color="#66B2FF" meeting="false" start="2027-01-18" duration="20" complete="0" expand="true" cost-manual-value="0" cost-calculated="false">
+<depend id="4" type="2" difference="0" hardness="Strong"/>
+<depend id="5" type="2" difference="0" hardness="Strong"/>
+<task id="701" uid="0a5c9e31000000000000000000000701" name="Pengembangan frontend (katalog, booking, dashboard staf)" color="#66B2FF" meeting="false" start="2027-01-18" duration="8" complete="0" expand="true" cost-manual-value="0" cost-calculated="false">
+<notes><![CDATA[Teknologi frontend mengacu pada aplikasi demo: HTML5, Tailwind CSS (CDN), dan Vanilla JavaScript.]]></notes>
+<customproperty taskproperty-id="tpc0" value="false"/>
+</task>
+<task id="702" uid="0a5c9e31000000000000000000000702" name="Pengembangan backend, API reservasi &amp; modul pembayaran" color="#66B2FF" meeting="false" start="2027-01-28" duration="8" complete="0" expand="true" cost-manual-value="0" cost-calculated="false">
+<customproperty taskproperty-id="tpc0" value="false"/>
+</task>
+<task id="703" uid="0a5c9e31000000000000000000000703" name="Integrasi antar modul &amp; code review" color="#66B2FF" meeting="false" start="2027-02-09" duration="4" complete="0" expand="true" cost-manual-value="0" cost-calculated="false">
+<customproperty taskproperty-id="tpc0" value="false"/>
+</task>
+<customproperty taskproperty-id="tpc0" value="false"/>
+</task>
+<task id="8" uid="0a5c9e31000000000000000000000008" name="I. Instalasi Hardware" color="#B6E38F" meeting="false" start="2027-02-15" duration="5" complete="0" expand="true" cost-manual-value="0" cost-calculated="false">
+<depend id="6" type="2" difference="0" hardness="Strong"/>
+<depend id="7" type="2" difference="0" hardness="Strong"/>
+<task id="801" uid="0a5c9e31000000000000000000000801" name="Instalasi perangkat di lobi &amp; ruang server hotel" color="#B6E38F" meeting="false" start="2027-02-15" duration="3" complete="0" expand="true" cost-manual-value="0" cost-calculated="false">
+<customproperty taskproperty-id="tpc0" value="false"/>
+</task>
+<task id="802" uid="0a5c9e31000000000000000000000802" name="Konfigurasi jaringan, uji koneksi &amp; keamanan" color="#B6E38F" meeting="false" start="2027-02-18" duration="2" complete="0" expand="true" cost-manual-value="0" cost-calculated="false">
+<customproperty taskproperty-id="tpc0" value="false"/>
+</task>
+<customproperty taskproperty-id="tpc0" value="false"/>
+</task>
+<task id="9" uid="0a5c9e31000000000000000000000009" name="F. Pelatihan Pengguna" color="#FFE08A" meeting="false" start="2027-02-22" duration="6" complete="0" expand="true" cost-manual-value="0" cost-calculated="false">
+<depend id="7" type="2" difference="0" hardness="Strong"/>
+<task id="901" uid="0a5c9e31000000000000000000000901" name="Pelatihan front-office receptionist" color="#FFE08A" meeting="false" start="2027-02-22" duration="3" complete="0" expand="true" cost-manual-value="0" cost-calculated="false">
+<customproperty taskproperty-id="tpc0" value="false"/>
+</task>
+<task id="902" uid="0a5c9e31000000000000000000000902" name="Pelatihan admin finance &amp; penyusunan materi pelatihan" color="#FFE08A" meeting="false" start="2027-02-25" duration="3" complete="0" expand="true" cost-manual-value="0" cost-calculated="false">
+<customproperty taskproperty-id="tpc0" value="false"/>
+</task>
+<customproperty taskproperty-id="tpc0" value="false"/>
+</task>
+<task id="10" uid="0a5c9e31000000000000000000000010" name="J. Implementasi &amp; Penerapan Sistem" color="#FF6B6B" meeting="false" start="2027-03-08" duration="10" complete="0" expand="true" cost-manual-value="0" cost-calculated="false">
+<depend id="8" type="2" difference="0" hardness="Strong"/>
+<depend id="9" type="2" difference="0" hardness="Strong"/>
+<task id="1001" uid="0a5c9e31000000000000000000001001" name="User Acceptance Test (UAT) di lapangan" color="#FF6B6B" meeting="false" start="2027-03-08" duration="5" complete="0" expand="true" cost-manual-value="0" cost-calculated="false">
+<customproperty taskproperty-id="tpc0" value="false"/>
+</task>
+<task id="1002" uid="0a5c9e31000000000000000000001002" name="Go-Live, monitoring &amp; serah terima sistem" color="#FF6B6B" meeting="false" start="2027-03-15" duration="5" complete="0" expand="true" cost-manual-value="0" cost-calculated="false">
+<customproperty taskproperty-id="tpc0" value="false"/>
+</task>
+<customproperty taskproperty-id="tpc0" value="false"/>
+</task>
+<task id="11" uid="0a5c9e31000000000000000000000011" name="Proyek Selesai - Go-Live Sistem Reservasi Hotel" color="#FF3333" meeting="true" start="2027-03-26" duration="0" complete="0" expand="true" cost-manual-value="0" cost-calculated="false">
+<depend id="10" type="2" difference="0" hardness="Strong"/>
+<notes><![CDATA[Milestone penutup proyek: sistem reservasi & pembayaran online Gorontalo Grand Palace Hotel resmi beroperasi penuh.]]></notes>
+<customproperty taskproperty-id="tpc0" value="false"/>
+</task>
+</tasks>
+<resources>
+<resource id="1" name="Rahmat Hulopi, S.Kom., M.M." function="0" contacts="rahmat.hulopi@grandpalacegorontalo.id" phone="0811-4001-2026">
+<rate name="standard" value="1750000"/>
+</resource>
+<resource id="2" name="Nisawati Pohontu, S.T." function="1" contacts="nisawati.pohontu@grandpalacegorontalo.id" phone="0811-4002-2026">
+<rate name="standard" value="1250000"/>
+</resource>
+<resource id="3" name="Alwi Rahman, S.Ds." function="2" contacts="alwi.rahman@grandpalacegorontalo.id" phone="0811-4003-2026">
+<rate name="standard" value="1100000"/>
+</resource>
+<resource id="4" name="Fadli Tuhuleley, S.Kom." function="3" contacts="fadli.tuhuleley@grandpalacegorontalo.id" phone="0811-4004-2026">
+<rate name="standard" value="1500000"/>
+</resource>
+<resource id="5" name="Wa Ode Sari, A.Md." function="4" contacts="waode.sari@grandpalacegorontalo.id" phone="0811-4005-2026">
+<rate name="standard" value="1000000"/>
+</resource>
+<resource id="6" name="Ilham Wonggai, S.T." function="5" contacts="ilham.wonggai@grandpalacegorontalo.id" phone="0811-4006-2026">
+<rate name="standard" value="1350000"/>
+</resource>
+</resources>
+<allocations>
+<allocation task-id="101" resource-id="2" function="1" responsible="true" load="100.0"/>
+<allocation task-id="102" resource-id="2" function="1" responsible="true" load="80.0"/>
+<allocation task-id="102" resource-id="1" function="0" responsible="false" load="40.0"/>
+<allocation task-id="103" resource-id="1" function="0" responsible="true" load="100.0"/>
+<allocation task-id="103" resource-id="2" function="1" responsible="false" load="50.0"/>
+<allocation task-id="201" resource-id="2" function="1" responsible="true" load="100.0"/>
+<allocation task-id="202" resource-id="3" function="2" responsible="true" load="100.0"/>
+<allocation task-id="202" resource-id="2" function="1" responsible="false" load="50.0"/>
+<allocation task-id="301" resource-id="2" function="1" responsible="true" load="80.0"/>
+<allocation task-id="302" resource-id="2" function="1" responsible="true" load="60.0"/>
+<allocation task-id="302" resource-id="4" function="3" responsible="false" load="50.0"/>
+<allocation task-id="303" resource-id="4" function="3" responsible="true" load="80.0"/>
+<allocation task-id="401" resource-id="6" function="5" responsible="true" load="100.0"/>
+<allocation task-id="402" resource-id="6" function="5" responsible="true" load="100.0"/>
+<allocation task-id="403" resource-id="6" function="5" responsible="true" load="100.0"/>
+<allocation task-id="501" resource-id="3" function="2" responsible="true" load="100.0"/>
+<allocation task-id="502" resource-id="3" function="2" responsible="true" load="80.0"/>
+<allocation task-id="502" resource-id="1" function="0" responsible="false" load="30.0"/>
+<allocation task-id="503" resource-id="6" function="5" responsible="true" load="70.0"/>
+<allocation task-id="503" resource-id="3" function="2" responsible="false" load="50.0"/>
+<allocation task-id="601" resource-id="1" function="0" responsible="true" load="80.0"/>
+<allocation task-id="601" resource-id="4" function="3" responsible="false" load="50.0"/>
+<allocation task-id="602" resource-id="4" function="3" responsible="true" load="80.0"/>
+<allocation task-id="602" resource-id="1" function="0" responsible="false" load="40.0"/>
+<allocation task-id="701" resource-id="4" function="3" responsible="true" load="100.0"/>
+<allocation task-id="702" resource-id="4" function="3" responsible="true" load="90.0"/>
+<allocation task-id="702" resource-id="6" function="5" responsible="false" load="60.0"/>
+<allocation task-id="703" resource-id="5" function="4" responsible="true" load="80.0"/>
+<allocation task-id="703" resource-id="4" function="3" responsible="false" load="60.0"/>
+<allocation task-id="801" resource-id="4" function="3" responsible="true" load="80.0"/>
+<allocation task-id="801" resource-id="1" function="0" responsible="false" load="30.0"/>
+<allocation task-id="802" resource-id="4" function="3" responsible="true" load="80.0"/>
+<allocation task-id="802" resource-id="6" function="5" responsible="false" load="40.0"/>
+<allocation task-id="901" resource-id="1" function="0" responsible="true" load="70.0"/>
+<allocation task-id="901" resource-id="5" function="4" responsible="false" load="80.0"/>
+<allocation task-id="902" resource-id="5" function="4" responsible="true" load="80.0"/>
+<allocation task-id="902" resource-id="1" function="0" responsible="false" load="40.0"/>
+<allocation task-id="1001" resource-id="5" function="4" responsible="true" load="100.0"/>
+<allocation task-id="1001" resource-id="4" function="3" responsible="false" load="50.0"/>
+<allocation task-id="1002" resource-id="1" function="0" responsible="true" load="100.0"/>
+<allocation task-id="1002" resource-id="4" function="3" responsible="false" load="40.0"/>
+</allocations>
+<vacations/>
+<previous/>
+<roles roleset-name="Default"/>
+<roles>
+<role id="0" name="Project Manager"/>
+<role id="1" name="System Analyst"/>
+<role id="2" name="UI/UX Designer"/>
+<role id="3" name="Lead Programmer"/>
+<role id="4" name="QA/Tester"/>
+<role id="5" name="Database Engineer"/>
+</roles>
+</project>
